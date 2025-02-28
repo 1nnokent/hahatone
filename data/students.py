@@ -17,6 +17,7 @@ class Person(SqlAlchemyBase, UserMixin):
     category = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     #id школы
     school = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    role = sqlalchemy.Column(sqlalchemy.Integer,nullable=False)
 
     def __repr__(self):
         return '<Person %r>' % self.id

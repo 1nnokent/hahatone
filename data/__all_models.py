@@ -1,6 +1,6 @@
 #МОДЕЛИ ДЛЯ РАБОТЫ С БАЗОЙ
 from . import schools
-from . import people
+from . import students
 from . import regions
 from . import students_points
 
