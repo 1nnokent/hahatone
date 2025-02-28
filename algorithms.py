@@ -19,7 +19,9 @@ def parse_region_statistics(st):
 def parse_students(st):
     place_start = 1
     parsed_st = []
-    for i in range(len(st)):
+    leng = len(st)
+    i = 0
+    while i < leng:
         place_finish = place_start
         j = i + 1
         while j < len(st) and st[j][4] == st[i][4]:
@@ -31,5 +33,6 @@ def parse_students(st):
             else:
                 parsed_st.append((str(place_start) + '-' + str(place_finish), st[k][0], st[k][1], st[k][2], st[k][4]))
         place_start = place_finish + 1
+        i = j
     return parsed_st
 
