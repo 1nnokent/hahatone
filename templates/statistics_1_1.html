@@ -1,0 +1,27 @@
+{% extends "header_1.html" %}
+
+{% block content %}
+<div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>место</th>
+              <th>регион</th>
+              <th>количество призеров</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data[0] %}
+                <tr>
+                    {% for i in range(3) %}
+                        <td>{{ row[i] }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+          </tbody>
+
+        </table>
+
+
+      </div>
+{% endblock %}

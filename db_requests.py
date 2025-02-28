@@ -68,3 +68,38 @@ def get_student_data(student_id):
     points = sql_execute(sql_req2).fetchall()
     ret = (personal_info, points)
     return ret
+
+
+def get_student_place(student_id):
+    sql_req = f"""
+        SELECT 
+            student_id, score
+        FROM 
+            students
+        ORDER BY
+            score DESC
+    """
+    result = sql_execute(sql_req)
+    students = result.fetchall()
+
+    ranked = []
+    prev_score = None
+    current_group_start = 0
+
+    for i, (_, score) in enumerate(students):
+        if score != prev_score:
+            if prev_score is not None:
+                ranked.append((current_group_start, i - 1))
+            current_group_start = i
+            prev_score = score
+    ranked.append((current_group_start, len(students) - 1))
+
+    for idx, (s_id, _) in enumerate(students):
+        if s_id == student_id:
+            for start, end in ranked:
+                if start <= idx <= end:
+                    if start == end:
+                        return start + 1
+                    else:
+                        return f"{start + 1}-{end + 1}"
+    return None

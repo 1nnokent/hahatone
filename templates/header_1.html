@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+    <meta charset="UTF-8">
+    <title>Навигация</title>
+    <style>
+        nav
+        {
+            padding: 16px 0;
+            background-color: #FEE5AC;
+        }
+        nav ul
+        {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        nav ul li
+        {
+            display: inline-block;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+        nav ul li:first-child
+        {
+            margin-left: 0px;
+        }
+        a
+        {
+            color: #310062;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="menu">
+        <ul>
+            <li><a href="1_0">участники</a></li>
+            <li><a href="1_1">призеры</a></li>
+            <li><a href="1_2">победители</a></li>
+            <li><a href="1_3">дипломы</a></li>
+        </ul>
+    </nav>
+    <main role="main" class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
