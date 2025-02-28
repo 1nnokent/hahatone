@@ -29,7 +29,7 @@ def get_school(first_name, middle_name, second_name):
     return sql_execute(sql_req)
 
 
-def get_region_statistic(role):
+def get_region_statistics(role):
     sql_req = f"""
         SELECT 
             region_name, COUNT(*) 
