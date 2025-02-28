@@ -88,67 +88,6 @@ def statistics_3_page():
     print(stds)
     return render_template('statistics_3.html', data=parsed)
 
-#массив всех людей
-arr = []
-with open('moscow.txt', 'r', encoding='utf-8') as f:
-    count = 0
-    #print('МОСКВА')
-    for line in f:
-        line = line.split(';')
-        if count >= 1:
-            place = line[0]
-            full_name = line[1]
-            full_name = full_name.split(" ")
-            first_name = full_name[1]
-            last_name = full_name[0]
-            study_class = int(line[2])
-            school = line[3]
-            score = int(line[12])
-            role = line[13]
-            arr.append([first_name, last_name, study_class, school, score])
-            #print(place, first_name, last_name, study_class, school, score, role)
-        count += 1
-
-with open('piter.txt', 'r', encoding='utf-8') as f:
-    count = 0
-    #print('ПИТЕР')
-    for line in f:
-        line = line.split(';')
-        if count >= 1:
-            place = line[0]
-            full_name = line[1]
-            g = full_name
-            full_name = full_name.split(" ")
-            first_name = full_name[1]
-            last_name = full_name[0]
-            study_class = ''
-            s = full_name[3]
-            school = ''
-            h = -1
-            k = -1
-            n = -1
-            nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-            for i in range(0, len(g)):
-                if g[i] == '(':
-                    h = i
-                if g[i] == ',':
-                    k = i
-                if g[i] == 'к':
-                    n = i
-            for num in range(h + 1, k):
-                school += g[num]
-            study = ""
-            for num in range(k + 2, n - 1):
-                study += g[num]
-            study_class = int(study)
-            score = int(line[len(line) - 1])
-            arr.append([first_name, last_name, study_class, school, score])
-            #print(place,first_name, last_name, study_class, school, score)
-        count += 1
-
-#for row in arr:
-    #print(row)
-
 if __name__ == '__main__':
     if 0:
         dr.initialize()
