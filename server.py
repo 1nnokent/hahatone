@@ -19,28 +19,29 @@ def student_page(student_id):
 
 
 @app.route('/statistics/1_0')
-def statistics_1_page():
-    data = dr.get_region_statistics(0)
-    parsed = al.parse_region_statistics(data)
-    return render_template('statistic_1_0', data=parsed)
+def statistics_1_0():
+    data_raw = dr.get_region_statistics(0)
+    parsed = al.parse_region_statistics(data_raw)
+    print(parsed)
+    return render_template('statistics_1_0.html', data=parsed)
 
 @app.route('/statistics/1_1')
-def statistics_1_page():
+def statistics_1_1():
     data = dr.get_region_statistics(1)
     parsed = al.parse_region_statistics(data)
-    return render_template('statistic_1_0', data=parsed)
+    return render_template('statistics_1_0.html', data=parsed)
 
 @app.route('/statistics/1_2')
-def statistics_1_page():
+def statistics_1_2():
     data = dr.get_region_statistics(2)
     parsed = al.parse_region_statistics(data)
-    return render_template('statistic_1_0', data=parsed)
+    return render_template('statistics_1_0.html', data=parsed)
 
 @app.route('/statistics/1_3')
-def statistics_1_page():
+def statistics_1_3():
     data = dr.get_region_statistics(3)
     parsed = al.parse_region_statistics(data)
-    return render_template('statistic_1_0', data=parsed)
+    return render_template('statistics_1_0.html', data=parsed)
 
 @app.route('/statistics/3', methods=['GET', 'POST'])
 def statistics_3_page():
