@@ -29,7 +29,7 @@ def get_school(first_name, middle_name, second_name):
     return sql_execute(sql_req)
 
 
-def get_region_statistics(role):
+def get_region_statistic(role):
     sql_req = f"""
         SELECT 
             region_name, COUNT(*) 
@@ -68,3 +68,20 @@ def get_student_data(student_id):
     points = sql_execute(sql_req2).fetchall()
     ret = (personal_info, points)
     return ret
+
+
+def get_student_place(student_id):
+    sql_req = f"""
+        SELECT 
+            student_id, score
+        FROM 
+            students
+        ORDER BY
+            score DESC
+    """
+    result = sql_execute(sql_req)
+    students = result.fetchall()
+    for index, student in enumerate(students):
+        if student[0] == student_id:
+            return index + 1
+    return None
