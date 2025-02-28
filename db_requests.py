@@ -29,7 +29,7 @@ def get_school(first_name, middle_name, second_name):
     """
     return sql_execute(sql_req)
 
-def get_region_staticstic(role):
+def get_region_statistic(role):
     sql_req = f"SELECT COUNT(*) FROM students WHERE role = '{role}'"
     result = sql_execute(sql_req)
     count = result.fetchone()[0]
