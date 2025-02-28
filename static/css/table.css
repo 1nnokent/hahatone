@@ -38,7 +38,7 @@ select, input[type="text"], button{
 
 button{
 
-    background-color: #5c67f2;
+    background-color: black;
     color: white;
     border: none;
     cursor: pointer;
