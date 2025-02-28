@@ -1,6 +1,3 @@
-def get_school(person):
-
-
 def parse_region_statistics(st):
     place_start = 1
     parsed_st = []
