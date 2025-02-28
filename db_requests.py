@@ -6,7 +6,7 @@ import sqlite3 as sq
 from datetime import datetime
 
 
-connect = sq.connect('/db/base.db', check_same_thread=False)
+connect = sq.connect('db/base.db', check_same_thread=False)
 cursor = connect.cursor()
 
 
