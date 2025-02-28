@@ -103,3 +103,46 @@ def get_student_place(student_id):
                     else:
                         return f"{start + 1}-{end + 1}"
     return None
+
+def students():
+
+    arr = []
+    with open('moscow.txt', 'r', encoding='utf-8') as f:
+        count = 0
+        #print('МОСКВА')
+        for line in f:
+            line = line.split(';')
+            if count >= 1:
+                place = line[0]
+                full_name = line[1]
+                full_name = full_name.split(" ")
+                first_name = full_name[1]
+                last_name = full_name[0]
+                study_class = int(line[2])
+                school = line[3]
+                score = int(line[12])
+                role = line[13]
+                arr.append([first_name, last_name, study_class, school, score])
+                #print(place, first_name, last_name, study_class, school, score, role)
+            count += 1
+
+    with open('piter.txt', 'r', encoding='utf-8') as f:
+        count = 0
+        #print('ПИТЕР')
+        for line in f:
+            line = line.split(';')
+            if count >= 1:
+                place = line[0]
+                full_name = line[1]
+                full_name = full_name.split(" ")
+                first_name = full_name[1]
+                last_name = full_name[0]
+                study_class = full_name[4]
+                s = full_name[3]
+                school = s[1:len(s) - 1]
+                score = int(line[len(line) - 1])
+                arr.append([first_name, last_name, study_class, school, score])
+                #print(place,first_name, last_name, study_class, school, score)
+            count += 1
+    return arr
+
