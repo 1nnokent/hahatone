@@ -19,6 +19,4 @@ class Region(SqlAlchemyBase, UserMixin):
     def __repr__(self):
         return '<Region %r>' % self.id
 
-    schools = orm.relationship("Schools", back_populates='Region')
-
 
