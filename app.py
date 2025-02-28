@@ -31,5 +31,14 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 db_session.global_init("db/base.db")
 
+region = Region()
+region.name = "random"
+region.priz = 1
+region.pobed = 1
+region.members = 10
+db_sess = db_session.create_session()
+db_sess.add(region)
+db_sess.commit()
+
 if __name__ == "__main__":
     app.run(debug=True)
