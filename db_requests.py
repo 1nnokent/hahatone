@@ -1,17 +1,19 @@
 import random
 import string
 import os
-
 from flask import Flask, render_template, request
 import sqlite3 as sq
 from datetime import datetime
 
+
 connect = sq.connect('/db/base.db', check_same_thread=False)
 cursor = connect.cursor()
+
 
 def sql_execute(sql_request):
     ret = cursor.execute(sql_request)
     return ret
+
 
 def get_school(first_name, middle_name, second_name):
     sql_req = f"""
@@ -29,3 +31,26 @@ def get_school(first_name, middle_name, second_name):
     """
     return sql_execute(sql_req)
 
+
+def get_student_data(student_id):
+    sql_req1 = f"""
+        SELECT 
+            first_name, middle_name, last_name, score, category, school_name
+        FROM
+            students INNER JOIN schools
+            ON students.school_id = schools.school_id
+        WHERE
+            student_id = {student_id}
+    """
+    personal_info = sql_execute(sql_req1)
+    sql_req2 = f"""
+        SELECT 
+            score
+        FROM
+            students_points
+        WHERE
+            student_id = {student_id}
+    """
+    points = sql_execute(sql_req2)
+    ret = (personal_info, points)
+    return ret
