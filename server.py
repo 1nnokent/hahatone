@@ -3,6 +3,11 @@ import db_requests as dr
 import algorithms as al
 import sqlite3 as sq
 import csv
+import matplotlib
+matplotlib.use('Agg')  # Используем 'Agg' для headless-режима
+import matplotlib.pyplot as plt
+import io
+
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = 'dj09(WJF*(#WsoJ#*fs'
