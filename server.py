@@ -83,15 +83,12 @@ def statistics_1_3():
 
 @app.route('/statistics/3', methods=['GET', 'POST'])
 def statistics_3_page():
-    if request.method == 'GET':
-        #получить данные всех пользователей из бд
-        return render_template('statistics_3.html') #с данными
-    else:
-        #получить фильтры
-        #получить данные, используя фильтры
-        return render_template('statistics_3.html') #с данными
-
-
+    stds = dr.get_students()
+    parsed = al.parse_students(stds)
+    print(stds)
+    return render_template('statistics_3.html', data=parsed)
 
 if __name__ == '__main__':
+    if 0:
+        dr.initialize()
     app.run(port=8080, host='127.0.0.1')

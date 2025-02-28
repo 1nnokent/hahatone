@@ -104,8 +104,8 @@ def get_student_place(student_id):
                         return f"{start + 1}-{end + 1}"
     return None
 
-def students():
 
+def get_students():
     arr = []
     with open('moscow.txt', 'r', encoding='utf-8') as f:
         count = 0
@@ -146,3 +146,18 @@ def students():
             count += 1
     return arr
 
+def initialize():
+    stds = get_students()
+    print(stds)
+    id = 0
+    for elem in stds:
+        sql_req = f"""
+            INSERT INTO
+                students
+            VALUES
+                ({id}, '{elem[0]}', NULL, '{elem[1]}', '{elem[2]}', {elem[4]}, 0, 0)
+        """
+        print(sql_req)
+        sql_execute(sql_req)
+        id += 1
+    connect.commit()
