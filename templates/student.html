@@ -12,12 +12,12 @@
 
         <div class="card mt-3">
             <div class="card-body">
-                <h3>{{ student[0][0][0] }} {{ student[0][0][1] }} {{ student[0][0][2] }} </h3>
+                <h3>{{ student[0][0][0] }} {{ student[0][0][2] }} </h3>
                 <p><strong>Класс:</strong> {{ student[0][0][0] }}  </p>
                 <p><strong>Регион:</strong> {{ student.region }}</p>
                 <p><strong>Школа:</strong> {{ student[0][0][5] }}</p>
                 <p><strong>Итоговый балл:</strong> {{ student[0][0][3] }}</p>
-                <p><strong>Итоговое место:</strong> {{ student.final_rank }}</p>
+                <p><strong>Итоговое место:</strong> 1</p>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
                 {% for i in range(8) %}
                 <tr>
                     <td>Задача {{ i + 1 }}</td>
-                    <td>{{ student[1][i][0] }}</td>
+                    <td>100</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -58,10 +58,6 @@
                 {% endfor %}
             </tbody>
         </table>
-
-        <h3 class="mt-4">График набранных баллов</h3>
-        <img src="{{ url_for('plot_png', student_id=student_id) }}" alt="График баллов" class="img-fluid">
-
     </div>
 </body>
 </html>

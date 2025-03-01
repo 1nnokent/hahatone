@@ -77,7 +77,7 @@ def statistics_1_2():
 
 @app.route('/statistics/1_3')
 def statistics_1_3():
-    data = dr.get_region_statistics(3)
+    data = dr.get_region_statistics(1) + dr.get_region_statistics(2)
     parsed = al.parse_region_statistics(data)
     return render_template('statistics_1_0.html', data=parsed)
 
@@ -85,10 +85,8 @@ def statistics_1_3():
 def statistics_3_page():
     stds = dr.get_students()
     parsed = al.parse_students(stds)
-    print(stds)
     return render_template('statistics_3.html', data=parsed)
 
 if __name__ == '__main__':
-    if 0:
-        dr.initialize()
+    print(al.parse_second_tour('30.html'))
     app.run(port=8080, host='127.0.0.1')

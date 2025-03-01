@@ -155,9 +155,12 @@ def initialize():
             INSERT INTO
                 students
             VALUES
-                ({id}, '{elem[0]}', NULL, '{elem[1]}', '{elem[2]}', {elem[4]}, 0, 0)
+                ({id}, '{elem[0]}', NULL, '{elem[1]}', '{elem[2]}', {elem[4]}, {random.randint(0, 2)}, 0)
         """
         print(sql_req)
         sql_execute(sql_req)
         id += 1
     connect.commit()
+
+if __name__ == '__main__':
+    print(get_school('Тимофей', None, 'Ижицкий'))

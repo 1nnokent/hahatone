@@ -1,3 +1,5 @@
+from bs4 import BeautifulSoup
+
 def parse_region_statistics(st):
     place_start = 1
     parsed_st = []
@@ -36,3 +38,44 @@ def parse_students(st):
         i = j
     return parsed_st
 
+
+def parse_first_tour(html_filename):
+    full_path = 'Материалы/Первый тур/' + html_filename
+    file = open(full_path, 'r', encoding='utf-8')
+    soup = BeautifulSoup(file, 'html.parser')
+    result = []
+
+    for table in soup.find_all('table'):
+        headers = []
+        header_row = table.find('tr')
+        if header_row:
+            headers = [header.get_text(strip=True) for header in header_row.find_all(['th', 'td'])]
+
+        for row in table.find_all('tr')[1:]:
+            cells = row.find_all('td')
+            row_data = [cell.get_text(strip=True) for cell in cells]
+            result.append(tuple(row_data))
+        return result
+
+    return []
+
+
+def parse_second_tour(html_filename):
+    full_path = 'Материалы/Второй тур/' + html_filename
+    file = open(full_path, 'r', encoding='utf-8')
+    soup = BeautifulSoup(file, 'html.parser')
+    result = []
+
+    for table in soup.find_all('table'):
+        headers = []
+        header_row = table.find('tr')
+        if header_row:
+            headers = [header.get_text(strip=True) for header in header_row.find_all(['th', 'td'])]
+
+        for row in table.find_all('tr')[1:]:
+            cells = row.find_all('td')
+            row_data = [cell.get_text(strip=True) for cell in cells]
+            result.append(tuple(row_data))
+        return result
+
+    return []

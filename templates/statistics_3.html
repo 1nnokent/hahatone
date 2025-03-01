@@ -91,11 +91,11 @@
             {% for row in data %}
                 <tr>
                     <td> {{ row[0] }} </td>
-                    <td>
+                    <td> <a href="/students/0">
                     {% for i in range(1, 3) %}
                         {{ row[i] }}
                     {% endfor %}
-                    </td>
+                    </a></td>
                     <td>{{ row[4] }}</td>
                 </tr>
             {% endfor %}
