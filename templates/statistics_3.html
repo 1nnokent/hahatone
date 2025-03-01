@@ -82,23 +82,26 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>место</th>
-              <th>фио</th>
-              <th>класс</th>
-              <th>баллы</th>
+                <th>место</th>
+                <th>фио</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>E</th>
+                <th>F</th>
+                <th>G</th>
+                <th>H</th>
             </tr>
           </thead>
           <tbody>
             {% for row in data %}
                 <tr>
-                    <td> {{ row[0] }} </td>
                     <td> <a href="/students/0">
-                    {% for i in range(1, 3) %}
+                    {% for i in range(10) %}
                         {{ row[i] }}
                     {% endfor %}
                     </a></td>
-                    <td>{{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
                 </tr>
             {% endfor %}
           </tbody>
