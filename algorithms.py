@@ -79,3 +79,19 @@ def parse_second_tour(html_filename):
         return result
 
     return []
+
+
+
+first_tour_times = [120, 150, 180, 190, 200, 220, 240, 260, 280, 295, 300]
+second_tour_times = [30, 45, 75, 90, 95, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 280, 290, 295, 300]
+def find_nearest_time(time, tour):
+    answ = 0
+    if tour == 1:
+        for elem in first_tour_times:
+            if elem <= time:
+                answ = elem
+    elif tour == 2:
+        for elem in second_tour_times:
+            if elem <= time:
+                answ = elem
+    return answ
