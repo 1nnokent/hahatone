@@ -8,6 +8,17 @@ from datetime import datetime
 connect = sq.connect('db/base.db', check_same_thread=False)
 cursor = connect.cursor()
 
+#ИМПОРТ ИЗ ДРУГИХ ФАЙЛОВ(для базы на алхимии)
+from data import db_session
+from data import students
+from data.students import Person
+from data import schools
+from data.schools import School
+from data import regions
+from data.regions import Region
+from data import student_dop
+from data.student_dop import Person_dop
+
 def sql_execute(sql_request):
     ret = cursor.execute(sql_request)
     return ret
@@ -161,6 +172,9 @@ def initialize():
         sql_execute(sql_req)
         id += 1
     connect.commit()
+
+
+
 
 #СОСТАВЛЕНИЕ БАЗЫ
 '''
@@ -359,7 +373,80 @@ for school in db_sess.query(School).all():
     cnt += 1
     print(school.name)
 print(cnt)
-
 '''
+import re
+
+def parse_complex_string(input_string):
+  """
+  Парсит строку вида (30,('1', 'Абдулин Гимран Маратович (Республика Татарстан, 10 класс)', '100', '100', '100', '60', '100', '100', '.', '.', '560'))
+  и возвращает словарь с распарсенными данными.
+  """
+  try:
+    # 1. Удаляем скобки и разделяем на две части: число и кортеж
+    match = re.match(r"\(([^,]+),\((.*)\)\)", input_string)
+    if not match:
+      raise ValueError("Неверный формат строки")
+
+    count_str, tuple_str = match.groups()
+    count = int(count_str)
+
+    # 2. Разделяем строку, представляющую кортеж, на отдельные элементы
+    #    Используем re.split, чтобы правильно обработать кавычки и запятые внутри строк
+    tuple_elements = re.split(r",(?=(?:[^']*'[^']*')*[^']*$)", tuple_str)
+    tuple_elements = [s.strip().strip("'") for s in tuple_elements] # Удаляем пробелы и кавычки
+
+    # 3. Преобразуем отдельные элементы в нужные типы данных
+    id = tuple_elements[0]
+    name = tuple_elements[1]
+    scores = tuple_elements[2:-2] # Оценки, с 2-го элемента до предпоследних двух ('.' и '.' элементов)
+    total_score = tuple_elements[-1] # Берем последний элемент как общий балл
+    if total_score == "":
+      total_score = 0 # Обработка пустой строки если вдруг
+    dop = Person_dop()
+    name = name.split(' ')
+    first_name = name[1]
+    last_name = name[0]
+    stu_id = 0
+    res1 = 0
+    res2 = 0
+    res3 = 0
+    res4 = 0
+    if scores[0] !='.':
+        res1 = int(scores[0])
+    else:
+        res1 = 0
+    if scores[1] !='.':
+        res2 = int(scores[1])
+    else:
+        res2 = 0
+    if scores[2] !='.':
+        res3 = int(scores[2])
+    else:
+        res3 = 0
+    if scores[3] !='.':
+        res4 = int(scores[3])
+    else:
+        res4 = 0
+    db_sess = db_session.create_session()
+    for person in db_sess.query(Person).all():
+        if person.first_name == first_name and person.lastname == last_name:
+            stu_id = person.id
+            break
+    dop.student_id = stu_id
+    dop.res1 = res1
+    dop.res2 = res2
+    dop.res3 = res3
+    dop.res4 = res4
+    dop.date = count
+    dop.num = 0
+    db_sess = db_session.create_session()
+    db_sess.add(dop)
+    db_sess.commit()
+    return 0
+  except ValueError as e:
+    print(f"Ошибка при парсинге строки: {e}")
+    return None
+
+
 if __name__ == '__main__':
     print(get_school('Тимофей', None, 'Ижицкий'))
