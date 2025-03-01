@@ -118,7 +118,8 @@ def statistics_1_3():
 
 @app.route('/statistics/3', methods=['GET', 'POST'])
 def statistics_3_page():
-    stds = dr.get_students()
+    stds = dr.get_students_by_time(30, 1)
+    print(stds)
     parsed = al.parse_students(stds)
     return render_template('statistics_3.html', data=parsed)
 

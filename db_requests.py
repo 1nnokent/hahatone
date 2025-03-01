@@ -157,6 +157,20 @@ def get_students():
             count += 1
     return arr
 
+
+def get_students_by_time(time, tour):
+    sql_req = f"""
+        SELECT
+            student_name, res1, res2, res3, res4
+        FROM
+            students INNER JOIN students_dop
+            ON students.id = student_id
+        WHERE
+            num = { tour }
+    """
+    return sql_execute(sql_req).fetchall()
+
+
 def initialize():
     stds = get_students()
     print(stds)
