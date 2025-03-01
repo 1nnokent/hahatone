@@ -123,14 +123,6 @@ def statistics_3_page():
     return render_template('statistics_3.html', data=parsed)
 
 
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     print(al.parse_second_tour('30.html'))
     app.run(port=8080, host='127.0.0.1')
