@@ -162,5 +162,197 @@ def initialize():
         id += 1
     connect.commit()
 
+#СОСТАВЛЕНИЕ БАЗЫ
+'''
+db_sess = db_session.create_session()
+db_sess.query(Region).filter(Region.id >= 0).delete()
+db_sess.commit()
+region = Region()
+region.name = "Москва"
+region.pobed = 0
+region.priz = 0
+region.members = 0
+db_sess = db_session.create_session()
+db_sess.add(region)
+db_sess.commit()
+
+region = Region()
+region.name = "Санкт-Петербург"
+region.pobed = 0
+region.priz = 0
+region.members = 0
+db_sess = db_session.create_session()
+db_sess.add(region)
+db_sess.commit()
+
+db_sess = db_session.create_session()
+cnt = 0
+for region in db_sess.query(Region).all():
+    cnt += 1
+    print(region.name)
+print(cnt)
+
+
+db_sess = db_session.create_session()
+db_sess.query(School).filter(School.id >= 0).delete()
+db_sess.commit()
+db_sess = db_session.create_session()
+db_sess.query(Person).filter(Person.id >= 0).delete()
+db_sess.commit()
+arr = []
+with open('moscow.txt', 'r', encoding='utf-8') as f:
+    count = 0
+    #print('МОСКВА')
+    for line in f:
+        line = line.split(';')
+        if count >= 1:
+            place = line[0]
+            full_name = line[1]
+            full_name = full_name.split(" ")
+            first_name = full_name[1]
+            last_name = full_name[0]
+            study_class = int(line[2])
+            school_name = line[3]
+            score = int(line[12])
+            role = line[13]
+            arr.append([first_name, last_name, study_class, school_name, score])
+            #ДОБАВЛЕНИЕ В БАЗУ ШКОЛЫ
+            school = School()
+            school.name = school_name
+            school.region = "Москва"
+            school.place = 0
+            school.priz = 0
+            school.members = 0
+            school.pobed = 0
+            db_sess = db_session.create_session()
+            db_sess.add(school)
+            db_sess.commit()
+
+            #ДОБАВЛЕНИЕ В БАЗУ ЧЕЛОВЕКА
+            person = Person()
+            person.school = school_name
+            person.firstname = first_name
+            person.lastname = last_name
+            person.score = score
+            person.role = 0
+            person.place = place
+            problems = [0, 0, 0, 0, 0, 0, 0, 0]
+            for i in range(4, 12):
+                if line[i] != '' and line[i] != '.':
+                    # print(int(line[i]), i)
+                    problems[i - 4] += int(line[i])
+                else:
+                    problems[i - 4] += 0
+
+
+            person.problem1 = problems[0]
+            person.problem2 = problems[1]
+            person.problem3 = problems[2]
+            person.problem4 = problems[3]
+            person.problem5 = problems[4]
+            person.problem6 = problems[5]
+            person.problem7 = problems[6]
+            person.problem8 = problems[7]
+            person.tour1 = person.problem1 + person.problem2 + person.problem3 + person.problem4
+            person.tour2 = person.problem5 + person.problem6 + person.problem7 + person.problem8
+            person.score = person.tour1 + person.tour2
+            #region.members += 1
+            if role == "победитель":
+                person.role = 1
+            if role == "призёр":
+                person.role = 2
+            db_sess = db_session.create_session()
+            db_sess.add(person)
+            db_sess.commit()
+            #print(place, first_name, last_name, study_class, school, score, role)
+        count += 1
+
+with open('piter.txt', 'r', encoding='utf-8') as f:
+    count = 0
+    #print('ПИТЕР')
+    for line in f:
+        line = line.split(';')
+        if count >= 1:
+            place = line[0]
+            full_name = line[1]
+            g = full_name
+            full_name = full_name.split(" ")
+            first_name = full_name[1]
+            last_name = full_name[0]
+            study_class = ''
+            s = full_name[3]
+            school_name = ''
+            h = -1
+            k = -1
+            n = -1
+            nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+            for i in range(0, len(g)):
+                if g[i] == '(':
+                    h = i
+                if g[i] == ',':
+                    k = i
+                if g[i] == 'к':
+                    n = i
+            for num in range(h + 1, k):
+                school_name += g[num]
+            study = ""
+            for num in range(k + 2, n - 1):
+                study += g[num]
+            study_class = int(study)
+            score = int(line[len(line) - 1])
+            arr.append([first_name, last_name, study_class, school_name, score])
+            # ДОБАВЛЕНИЕ В БАЗУ ШКОЛЫ
+            school = School()
+            school.name = school_name
+            school.region = "Санкт-Петербург"
+            school.place = 0
+            school.priz = 0
+            school.members = 0
+            school.pobed = 0
+            db_sess = db_session.create_session()
+            db_sess.add(school)
+            db_sess.commit()
+
+
+            # ДОБАВЛЕНИЕ В БАЗУ ЧЕЛОВЕКА
+            person = Person()
+            person.school = school_name
+            person.firstname = first_name
+            person.lastname = last_name
+            person.score = score
+            person.place = place
+            problems = [0, 0, 0, 0, 0, 0, 0, 0]
+            for i in range(2, 9):
+                if line[i] != '' and line[i] != '.':
+                    # print(int(line[i]), i)
+                    problems[i - 2] += int(line[i])
+                else:
+                    problems[i - 2] += 0
+
+            person.problem1 = problems[0]
+            person.problem2 = problems[1]
+            person.problem3 = problems[2]
+            person.problem4 = problems[3]
+            person.problem5 = problems[4]
+            person.problem6 = problems[5]
+            person.problem7 = problems[6]
+            person.problem8 = problems[7]
+            person.tour1 = person.problem1 + person.problem2 + person.problem3 + person.problem4
+            person.tour2 = person.problem5 + person.problem6 + person.problem7 + person.problem8
+            person.score = person.tour1 + person.tour2
+            # У НИХ НЕ НАПИСАНО, ПОЭТОМУ ИЗМЕНЯТЬ НАДО БУДЕТ КАК-ТО ГДЕ-ТО ПОТОМ
+            person.role = 0
+            db_sess = db_session.create_session()
+            db_sess.add(person)
+            db_sess.commit()
+            #print(place,first_name, last_name, study_class, school_name, score)
+        count += 1
+db_sess = db_session.create_session()
+cnt = 0
+for person in db_sess.query(Person).all():
+    cnt += 1
+    print(person.firstname, person.lastname,person.school, person.score, person.role)
+print(cnt)
+'''
 if __name__ == '__main__':
     print(get_school('Тимофей', None, 'Ижицкий'))
