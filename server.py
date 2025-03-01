@@ -236,8 +236,8 @@ db_sess = db_session.create_session()
 cnt = 0
 for person in db_sess.query(Person).all():
     cnt += 1
-    print(person.firstname, person.lastname,person.school, person.score, person.role)
-print(cnt)
+    #print(person.firstname, person.lastname,person.school, person.score, person.role)
+#print(cnt)
 
 
 #ОСТАЛЬНОЙ КОД
