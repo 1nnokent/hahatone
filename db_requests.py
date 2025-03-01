@@ -192,6 +192,7 @@ for region in db_sess.query(Region).all():
     print(region.name)
 print(cnt)
 
+all_schools = []
 
 db_sess = db_session.create_session()
 db_sess.query(School).filter(School.id >= 0).delete()
@@ -217,16 +218,18 @@ with open('moscow.txt', 'r', encoding='utf-8') as f:
             role = line[13]
             arr.append([first_name, last_name, study_class, school_name, score])
             #ДОБАВЛЕНИЕ В БАЗУ ШКОЛЫ
-            school = School()
-            school.name = school_name
-            school.region = "Москва"
-            school.place = 0
-            school.priz = 0
-            school.members = 0
-            school.pobed = 0
-            db_sess = db_session.create_session()
-            db_sess.add(school)
-            db_sess.commit()
+            if len(all_schools) == 0 or all_schools.count(school_name) == 0:
+                school = School()
+                school.name = school_name
+                school.region = "Москва"
+                school.place = 0
+                school.priz = 0
+                school.members = 0
+                school.pobed = 0
+                db_sess = db_session.create_session()
+                db_sess.add(school)
+                db_sess.commit()
+                all_schools.append(school_name)
 
             #ДОБАВЛЕНИЕ В БАЗУ ЧЕЛОВЕКА
             person = Person()
@@ -302,16 +305,19 @@ with open('piter.txt', 'r', encoding='utf-8') as f:
             score = int(line[len(line) - 1])
             arr.append([first_name, last_name, study_class, school_name, score])
             # ДОБАВЛЕНИЕ В БАЗУ ШКОЛЫ
-            school = School()
-            school.name = school_name
-            school.region = "Санкт-Петербург"
-            school.place = 0
-            school.priz = 0
-            school.members = 0
-            school.pobed = 0
-            db_sess = db_session.create_session()
-            db_sess.add(school)
-            db_sess.commit()
+            all_schools = []
+            if len(all_schools) == 0 or all_schools.count(school_name) == 0:
+                school = School()
+                school.name = school_name
+                school.region = "Санкт-Петербург"
+                school.place = 0
+                school.priz = 0
+                school.members = 0
+                school.pobed = 0
+                db_sess = db_session.create_session()
+                db_sess.add(school)
+                db_sess.commit()
+                all_schools.append(school_name)
 
 
             # ДОБАВЛЕНИЕ В БАЗУ ЧЕЛОВЕКА
@@ -349,10 +355,11 @@ with open('piter.txt', 'r', encoding='utf-8') as f:
         count += 1
 db_sess = db_session.create_session()
 cnt = 0
-for person in db_sess.query(Person).all():
+for school in db_sess.query(School).all():
     cnt += 1
-    print(person.firstname, person.lastname,person.school, person.score, person.role)
+    print(school.name)
 print(cnt)
+
 '''
 if __name__ == '__main__':
     print(get_school('Тимофей', None, 'Ижицкий'))

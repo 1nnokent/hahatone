@@ -45,9 +45,6 @@ from data.student_dop import Person_dop
 #база на алхимии
 db_session.global_init("db/alch.db")
 
-
-
-
 #ОСТАЛЬНОЙ КОД
 
 def generate_score_plot(student_id):
