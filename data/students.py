@@ -18,6 +18,20 @@ class Person(SqlAlchemyBase, UserMixin):
     school = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     role = sqlalchemy.Column(sqlalchemy.Integer,nullable=False)
 
+    problem1 = sqlalchemy.Column(sqlalchemy.Integer,nullable=False)
+    problem2 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    problem3 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    problem4 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    problem5 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    problem6 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    problem7 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    problem8 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+
+    tour1 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    tour2 = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+
+    place = sqlalchemy.Column(sqlalchemy.String,nullable=False)
+
     def __repr__(self):
         return '<Person %r>' % self.id
 

@@ -1,3 +1,5 @@
+import string
+
 from flask import Flask, render_template, request, redirect, url_for, send_file, make_response
 import db_requests as dr
 import algorithms as al
@@ -22,7 +24,7 @@ import os
 
 import json
 import os
-
+digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = 'dj09(WJF*(#WsoJ#*fs'
@@ -47,6 +49,7 @@ db_session.global_init("db/alch.db")
 
 #БАЗА НА АЛХИМИИ
 #Добавим известные регионы
+'''
 db_sess = db_session.create_session()
 db_sess.query(Region).filter(Region.id >= 0).delete()
 db_sess.commit()
@@ -76,6 +79,12 @@ for region in db_sess.query(Region).all():
 print(cnt)
 
 #массив всех людей
+db_sess = db_session.create_session()
+db_sess.query(School).filter(School.id >= 0).delete()
+db_sess.commit()
+db_sess = db_session.create_session()
+db_sess.query(Person).filter(Person.id >= 0).delete()
+db_sess.commit()
 arr = []
 with open('moscow.txt', 'r', encoding='utf-8') as f:
     count = 0
@@ -94,9 +103,6 @@ with open('moscow.txt', 'r', encoding='utf-8') as f:
             role = line[13]
             arr.append([first_name, last_name, study_class, school_name, score])
             #ДОБАВЛЕНИЕ В БАЗУ ШКОЛЫ
-            db_sess = db_session.create_session()
-            db_sess.query(School).filter(School.id >= 0).delete()
-            db_sess.commit()
             school = School()
             school.name = school_name
             school.region = "Москва"
@@ -109,15 +115,33 @@ with open('moscow.txt', 'r', encoding='utf-8') as f:
             db_sess.commit()
 
             #ДОБАВЛЕНИЕ В БАЗУ ЧЕЛОВЕКА
-            db_sess = db_session.create_session()
-            db_sess.query(Person).filter(Person.id >= 0).delete()
-            db_sess.commit()
             person = Person()
             person.school = school_name
             person.firstname = first_name
             person.lastname = last_name
             person.score = score
             person.role = 0
+            person.place = place
+            problems = [0, 0, 0, 0, 0, 0, 0, 0]
+            for i in range(4, 12):
+                if line[i] != '' and line[i] != '.':
+                    # print(int(line[i]), i)
+                    problems[i - 4] += int(line[i])
+                else:
+                    problems[i - 4] += 0
+
+
+            person.problem1 = problems[0]
+            person.problem2 = problems[1]
+            person.problem3 = problems[2]
+            person.problem4 = problems[3]
+            person.problem5 = problems[4]
+            person.problem6 = problems[5]
+            person.problem7 = problems[6]
+            person.problem8 = problems[7]
+            person.tour1 = person.problem1 + person.problem2 + person.problem3 + person.problem4
+            person.tour2 = person.problem5 + person.problem6 + person.problem7 + person.problem8
+            person.score = person.tour1 + person.tour2
             #region.members += 1
             if role == "победитель":
                 person.role = 1
@@ -182,6 +206,26 @@ with open('piter.txt', 'r', encoding='utf-8') as f:
             person.firstname = first_name
             person.lastname = last_name
             person.score = score
+            person.place = place
+            problems = [0, 0, 0, 0, 0, 0, 0, 0]
+            for i in range(2, 9):
+                if line[i] != '' and line[i] != '.':
+                    # print(int(line[i]), i)
+                    problems[i - 2] += int(line[i])
+                else:
+                    problems[i - 2] += 0
+
+            person.problem1 = problems[0]
+            person.problem2 = problems[1]
+            person.problem3 = problems[2]
+            person.problem4 = problems[3]
+            person.problem5 = problems[4]
+            person.problem6 = problems[5]
+            person.problem7 = problems[6]
+            person.problem8 = problems[7]
+            person.tour1 = person.problem1 + person.problem2 + person.problem3 + person.problem4
+            person.tour2 = person.problem5 + person.problem6 + person.problem7 + person.problem8
+            person.score = person.tour1 + person.tour2
             # У НИХ НЕ НАПИСАНО, ПОЭТОМУ ИЗМЕНЯТЬ НАДО БУДЕТ КАК-ТО ГДЕ-ТО ПОТОМ
             person.role = 0
             db_sess = db_session.create_session()
@@ -193,9 +237,9 @@ db_sess = db_session.create_session()
 cnt = 0
 for person in db_sess.query(Person).all():
     cnt += 1
-    print(person.firstname, person.lastname,person.school, person.score, person.role)
-print(cnt)
-
+    #print(person.firstname, person.lastname,person.school, person.score, person.role)
+#print(cnt)
+'''
 
 #ОСТАЛЬНОЙ КОД
 
