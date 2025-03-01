@@ -49,6 +49,7 @@ db_session.global_init("db/alch.db")
 
 #БАЗА НА АЛХИМИИ
 #Добавим известные регионы
+'''
 db_sess = db_session.create_session()
 db_sess.query(Region).filter(Region.id >= 0).delete()
 db_sess.commit()
@@ -238,7 +239,7 @@ for person in db_sess.query(Person).all():
     cnt += 1
     #print(person.firstname, person.lastname,person.school, person.score, person.role)
 #print(cnt)
-
+'''
 
 #ОСТАЛЬНОЙ КОД
 
