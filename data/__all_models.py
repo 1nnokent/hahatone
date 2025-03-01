@@ -3,6 +3,7 @@ from . import schools
 from . import students
 from . import regions
 from . import students_points
+from . import student_dop
 
 #НА ВСЯКИЙ СЛУЧАЙ
 from flask import Flask

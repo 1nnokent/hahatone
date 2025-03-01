@@ -39,6 +39,8 @@ from data import schools
 from data.schools import School
 from data import regions
 from data.regions import Region
+from data import student_dop
+from data.student_dop import Person_dop
 
 #база на алхимии
 db_session.global_init("db/alch.db")
